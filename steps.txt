@@ -1,0 +1,133 @@
+pip install virtualenv
+virtualenv venv
+Scripts\activate
+pip freeze
+pip install django
+django-admin startproject project-name
+cd project-name
+python manage.py runserver
+python manage.py startapp app-name
+write a funtion return HTTPResponse in sub app.view
+write a path of a function in app.urls
+create subapp.urls
+or write a path in subapp.urls 
+and include in app.urls
+go to app.settings and add a new app in Installed_APPS
+pip install mysql-connector-python
+pip install pymysql
+add these in init.py
+(import pymysql
+pymysql.install_as_MySQLdb())
+create a database
+add a database conf to settings
+python manage.py migrate auth
+python manage.py migrate
+create an admin by write"python manage.py createsuperuser"
+create a database table as a class in subapp.models
+python manage.py makemigrations
+python manage.py migrate
+insert into database
+use admin pannel to control crud operations
+write "from appname.models import classname
+admin.site.register(classname)" in subapp.admin
+then apply crud operations in admin pannel
+for images create a folder "media" in app 
+then add "STATIC_URL = 'static/'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')" to app.settings
+then add "from django.conf import settings
+from django.conf.urls.static import static
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)" to app.urls
+to show rows from database you should write python manage.py shell in terminal
+then write "from products.models import Product
+pip install pillow
+>>> Product.objects.all();"
+Product.objects.get(product_name="milk")
+15499
+write "python.manage.py shell" in terminal
+pip install ipython
+to get all_products write "for i in range(len(all_products)):print(all_products[i].__dict__)"
+pip install ipython
+then write "from products.models import Product
+s = products.objects.all()
+s[0]
+s[0].__dict__
+for i in range(len(s)):print(s[i].__dict__["price"])"  
+write "def get_all_products(request):
+    products = Product.objects.all()
+    return render(request, "products/index.html", context={"products":products})" in products.views
+create templates\products\index.html file in products
+in products.views write "return render(request, "products/index.html", context={"products":products})"
+in products.html write "{% for prod in products%}
+        <h1 style="color:blue">{{prod.product_name}} - {{prod.description}} - {{prod.price}}</h1>
+        {% endfor %}"
+
+pip freeze > requirements.txt
+pip install -r requirements
+to return an image use "return file response(open('img path','rb'))" 
+return json response
+unique = True, default = ""
+to make a text to show below field use "help_text = 'your text'"
+to change col name in database only without model use "db_column = 'model name'"
+to change col name in admin pannel only without DB use "verbose_column = 'model name'"
+to make a field uneditable and does not appear in admin pannel use "editable=Flase"
+error_messages={"unique or anything else","error_message"}
+autofield, bigautofield, onetoonefield, foreignkey, manytomany
+to return before migration use "migrate myapp zero"
+to use normal DB in django use "python manage.py dbshell"
+in python shell to add a new data use "object = class(), object.name = '', object.save"
+or "object=class.objects.create(name='', password='') then object.save"
+to convert django class in a list use
+"all = Student.objects.all()"
+"all_list = list(all)" then loop on all_rows
+try and except
+objects.count()
+to remove specific values from selection use "Student.objects.all().exclude(id=1)"
+class meta to change table name in admin and DB
+to change order use "class meta: ordering = ['col_name']"
+Student.objects.all().order_by("col_name")
+to get last value use "Student.objects.all().reverse("col_name")[0]"
+to show specific col in DB use "Student.objects.all().values("col_name") or values_list..."
+to get last row you added to DB use "Student.objects.latest("col_name)"
+filter.exists()
+to delete use "Student.objects.filter(id=1).delete()"
+filter(name__exact='') or filter(name__iexact='') 
+to search for a specific char or word use "filter(name__contains='e')"
+to search for a specific range use "filter(id__in=[1,2,3,4])"
+greater than use "filter(age__gt=20)"
+greater than or equla use "filter(age_gte=20)
+less than use "filter(age__lt=20)"
+less than use "filter(name__startswith='a')" or less than use "filter(name__endswith='a')"
+if col was FK use "object2.name=object1"
+datetime.date()
+to search for range of date use 
+"start_date = datetime.date(2010,1,1)" and end_date=....
+"Book.objects.filter(col_name__range=(start_data, end_date)"
+to select a specific date use "Book.objects.filter(col_name__date=datetime.date(2010,1,1))"
+to select a specific year use "Book.objects.filter(col_name__year=2010)" month, week, day and quarter
+to select a specific time use "Book.objects.filter(col_name__time=datetime.time(10,23,41))"
+to select a specific hour use "Book.objects.filter(col_name__hour=10)" or minute or second
+"Book.objects.filter(col_name__is_null=false)"
+"Book.objects.filter(col_name__regex='')"
+x = Book....
+to show query use "str(x.query)"
+to check where is error use "python manage.py check" if you write "FateTime" in stead of "datetime" and so on
+to create more than row in same time use "Student.objects.bulk_create([Student(name='',age=''),Student(name='',age='')....])"
+q1 = Student.objects.filter(name__startswith='a'), q2 = Student.objects.filter(endswith='d')
+use (and) "q1 & q2" / if true , it returns ahmad \ and u can use (or) "|", union
+to use aggregation functions write "from django.db.models import Max,Min,Avg,Sum"
+then write "Student.objects.all(aggregate(Max('col_name'))"
+filters 
+{{name|default:"Ahmed}} \ |length,filesizeformat,add,capfirst,cut,date:'j \ n \ Y',floatformant,upper,lower
+|random to select random element from a list, slice, slagify to convert ahmed essam to ahmed-essam
+|timesince مثلا تم نشر هذا البوست منذ, timeuntil مثلاً تاريخ انتهاء صلاحية ويكون تاريخ لم يأتِ بعد
+|title, truncatechars:"3" or truncatewords:"4" to write like this "this product....." 
+|unordered_list, urlize to convert any email or url from any text, wordcount filter to count text words
+Templates inheritance
+{% extends 'index.html' %} \ {% include 'index.html' %} for a part of page \ {% block content %} {% endblock content %}
+in case of no data in for loop use {% empty %} "no data here"
+cycle لتغيير التنسيقات مع كل سطر جديد
+href = "{% url 'home' %}" 'home' is the name of view function
+crispy_forms \\ install django-crispy-forms and add in installed_apps الدرس 30
+if request.method="POST":x=SForm(request.POST) if x.is_valid():x.cleaned_data
+then name=x.cleaned_data.get('name')
